@@ -2,6 +2,7 @@ import pygame
 from class1.board_class import *
 import sys
 from class1.player_class import *
+import random
 board = Board()
 player = Player()
 def win(phase,p1y,p2y,sc_x,sc_y,by,bh,screen):#勝利条件:
@@ -24,7 +25,8 @@ def start(bx,by,bw,bh,ww,wh):#初期値
     i2,j2 = 15,9
     matrix_b[i1][j1] = 5
     matrix_b[i2][j2] = 5
-    phase = 0
+    matrix_b = board.item(matrix_b,17,17,-1)
+    phase = random.randint(0,1)
     game = 0
     return(matrix_b,p1x,p1y,p2x,p2y,phase,game,i1,j1,i2,j2)
 def wallORsq(matrix_b,i,j,phase):
@@ -60,6 +62,7 @@ def main():
                                             wallORsq(matrix_b,i,j,phase)
                                         elif i%2 == 0 and j%2 != 0:
                                             wallORsq(matrix_b,i,j,phase)
+                                        phase += 1
                 if event.type == pygame.KEYDOWN:
                     if game == 0:
                         phase += 1
@@ -78,7 +81,8 @@ def main():
                         else:
                             d=4#moveの中にdが必要なため捨て値として
                             phase -=1
-                            
+                            for i in matrix_b:
+                                print(i)
                         if phase%2 == 0:
                             matrix_b,i1,j1,phase = player.move_mat(i1,j1,matrix_b,d,17,phase)
                             p1x,p1y = player.deci_by_mat(i1,j1,matrix,size)#配列の一に合わせて駒の座標を変更する
@@ -87,7 +91,10 @@ def main():
                             p2x,p2y = player.deci_by_mat(i2,j2,matrix,size)#配列の一に合わせて駒の座標を変更する
                     if game == 1 and event.key == pygame.K_r:
                         matrix_b,p1x,p1y,p2x,p2y,phase,game,i1,j1,i2,j2 = start(bx,by,bw,bh,ww,wh)
-                                
+        if phase%2 == 0:
+            board.turn_tx("白",screen,50,200)
+        else:
+            board.turn_tx("黒",screen,50,200)
         p1 = player.m_player(size,p1x,p1y,screen,board.BLACK)
         p2 = player.m_player(size,p2x,p2y,screen,board.WHITE)
 

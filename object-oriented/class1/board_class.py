@@ -1,5 +1,6 @@
 import pygame
 import copy
+import random
 class Board:
     basic_screen = 1440,900
     basic_board_cor = 410,10
@@ -10,7 +11,7 @@ class Board:
     BROWN = (180,70,0)
     PALE_YELLOW = (255,241,171)
     
-    font_path ="C:/Users/chado/AppData/Local/Programs/Python/Python311/newgame/Noto_Sans_JP/static/NotoSansJP-Black.ttf"
+    font_path ="C:/Users/chado/AppData/Local/Programs/Python/Python311/object-oriented/Noto_Sans_JP/static/NotoSansJP-Black.ttf"
 
 
     def __init__(self):
@@ -98,3 +99,14 @@ class Board:
         tx1_position = tx1.get_rect(center=(sx/2,(sy+300)/2))
         screen.blit(tx,tx_position)
         screen.blit(tx1,tx1_position)
+
+    def turn_tx(self,tx,screen,txx,txy):
+        tx = self.font.render("{}のターンです。".format(tx),True,self.BLACK)
+        tx_position = txx,txy
+        screen.blit(tx,tx_position)
+        
+    def item(self,mat,row,line,itype):
+        i = random.randrange(1,row,step=2)
+        j = random.randrange(1,line,step=2)
+        mat[i][j] = itype
+        return(mat)

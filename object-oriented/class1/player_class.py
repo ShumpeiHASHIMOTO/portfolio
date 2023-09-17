@@ -80,15 +80,14 @@ class Player:
 
     def check_mat(self,mat,pi,pj,d):
         if d == 0:
-            if mat[pi-1][pj] != 0 or mat[pi-2][pj] != 0:
+            if mat[pi-1][pj] > 0 or mat[pi-2][pj] > 0:
                 return(False)
         if d == 1:
-            if mat[pi][pj+1] != 0 or mat[pi][pj+2] != 0:
+            if mat[pi][pj+1] > 0 or mat[pi][pj+2] > 0:
                 return(False)
         if d == 2:
-            if mat[pi+1][pj] != 0 or mat[pi+2][pj] != 0:
+            if mat[pi+1][pj] > 0 or mat[pi+2][pj] > 0:
                 return(False)
         if d == 3:
-            if mat[pi][pj-1] != 0 or mat[pi][pj-2] != 0:
+            if mat[pi][pj-1] > 0 or mat[pi][pj-2] > 0:
                 return(False)
-
